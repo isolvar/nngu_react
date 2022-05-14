@@ -9,13 +9,10 @@ interface IItem {
 const Item: FC<IItem> = (props) => {
   const { name, description } = props;
 
-  //   console.log('Название -', name);
-  //   console.log('Описание -', description);
-
   return (
     <div className={style.item_container}>
       <p>{name}</p>
-      <p>Описание</p>
+      <p>Описание:</p>
       <p>{description}</p>
     </div>
   );

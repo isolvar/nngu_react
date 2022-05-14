@@ -36,10 +36,10 @@ const ItemsList = () => {
       <div className={style.items_list}>
         {ItemsMock.map((item) => {
           const { id, itemName, itemDescription } = item;
-          return <Item key={`${id}`} name={itemName} description={itemDescription} />;
+          return <Item key={`ID: ${id}`} name={itemName} description={itemDescription} />;
         })}
         {/* <Item name={ItemsMock.itemName} description={ItemsMock.itemDescription} />
-        <Item name={ItemsMock.itemName} description={ItemsMock.itemDescription} />
+        <Item name="Шапка" description="Очень красивая шапка" />
         <Item name={ItemsMock.itemName} description={ItemsMock.itemDescription} />
         <Item name={ItemsMock.itemName} description={ItemsMock.itemDescription} /> */}
       </div>
