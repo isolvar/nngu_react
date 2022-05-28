@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { IUsers } from '../../../interfaces/IUsers';
-// import style from '../UsersPage.module.scss';
+import style from '../UsersPage.module.scss';
 import UserCard from './UserCard';
 
 interface IProps {
@@ -11,12 +11,12 @@ const UsersPageComponent: FC<IProps> = ({ usersDataAttr }) => {
   return (
     <div>
       <p>Список пользователей:</p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20ppx' }}>
+      <div className={style.user_list}>
         {usersDataAttr.length ? (
           usersDataAttr.map((user) => {
             const { id, name, email } = user;
             return (
-              <React.Fragment key={`UserID:${id}`}>
+              <React.Fragment key={`UserId:${id}`}>
                 <UserCard name={name} email={email} />
               </React.Fragment>
             );
