@@ -10,3 +10,10 @@
   padding: 15px;
   width: 200px;
 }
+
+.create_user__form_wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  gap: 20px;
+}

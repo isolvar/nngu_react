@@ -12,7 +12,7 @@ const Pagination: FC<IProps> = ({ limit, itemsAmount }) => {
 
   const navigate = useNavigate();
 
-  for (let i = 0; i < pagesAmount; i++) {
+  for (let i = 1; i <= pagesAmount; i++) {
     pagesArray.push(i);
   }
 
