@@ -1,5 +1,3 @@
 import { IStore } from '../../i';
 
-export const getUsersData = (state: IStore) => {
-  return state.users.usersData;
-};
+export const getUsersData = (state: IStore) => state.users.usersData;

@@ -33,8 +33,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     getData(usersUrl);
-    dispatch({ type: 'SET_DATA', payload: [1, 2, 3] });
-    // dispatch(setUsersDataAction([1, 2, 3]));
+    // dispatch({ type: 'SET_DATA', payload: [1, 2, 3] });
   }, []);
 
   return !usersData ? <div>Загрузка...</div> : <UsersPageComponent usersDataAttr={usersData} />;

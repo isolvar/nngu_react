@@ -6,49 +6,52 @@ const TestPageComponent = () => {
 
   const updatedArray = useMemo(() => {
     return someArray.map((num) => {
-      console.log('Hello');
+      console.log('hello');
       return num + 10;
     });
   }, [someArray]);
 
   // componentDidMount
   useEffect(() => {
-    console.log('Component showed');
+    console.log('Компонент отображен');
   }, []);
 
-  // // componentDidUpdate
-  // useEffect(() => {
-  //   console.log('Component updated');
-  // });
+  // componentDidUpdate
+  //   useEffect(() => {
+  //     console.log('Компонент обновлен');
+  //   });
 
-  // // componentDidUpdate
-  // useEffect(() => {
-  //   console.log('Counter updated');
-  // }, [counter]);
+  //   useEffect(() => {
+  //     console.log('COUNTER обновлен');
+  //   }, [counter]);
 
-  // useEffect(() => {
-  //   console.log('SomeArray updated');
-  // }, [someArray]);
+  //   useEffect(() => {
+  //     console.log('SOME_ARRAY обновлен');
+  //   }, [someArray]);
 
-  // // componentWillUnmount
-  // useEffect(() => {
-  //   return () => {
-  //     console.log('Component was deleted');
-  //   };
-  // }, []);
+  //   useEffect(() => {
+  //     console.log('COUNTER ИЛИ SOME_ARRAY обновлен');
+  //   }, [counter, someArray]);
+
+  // componentWillUnmount
+  useEffect(() => {
+    return () => {
+      console.log('Компонент был удален');
+    };
+  }, []);
 
   return (
     <div>
       <p>{counter}</p>
       <button type="button" onClick={() => setCount((prev) => prev + 1)}>
-        Increase counter
+        Увеличить counter
       </button>
       <hr />
       <button type="button" onClick={() => setSomeArray((prev) => [...prev, prev.length + 1])}>
-        Add number in array
+        Добавить число в массив
       </button>
       {updatedArray.map((num, index) => {
-        return <div key={`key:${num + index}`}>{num}</div>;
+        return <div key={`${num + index}`}>{num}</div>;
       })}
     </div>
   );

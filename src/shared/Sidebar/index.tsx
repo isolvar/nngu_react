@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { sidebarConfig } from './sidebarСonfig';
+import { sidebarConfig } from './sidebarConfig';
 import style from './Sidebar.module.scss';
 
 const Sidebar = () => {

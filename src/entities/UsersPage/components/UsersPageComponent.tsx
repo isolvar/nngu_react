@@ -12,20 +12,19 @@ interface IProps {
 }
 
 const UsersPageComponent: FC<IProps> = ({ usersDataAttr }) => {
+  const { search } = useLocation();
+  const dispatch = useDispatch();
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
 
-  const dispatch = useDispatch();
-
-  const { search } = useLocation();
   const currentPageNumber = new URLSearchParams(search).get('page');
 
-  const pagginatedUserData = usersDataAttr.slice(
+  const paginatedUserData = usersDataAttr.slice(
     (Number(currentPageNumber) - 1) * 3,
     Number(currentPageNumber) * 3
   );
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSumbit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const newUser = {
@@ -33,7 +32,6 @@ const UsersPageComponent: FC<IProps> = ({ usersDataAttr }) => {
       name: nameValue,
       email: emailValue,
     };
-
     dispatch(createUserAction(newUser));
   };
 
@@ -41,12 +39,12 @@ const UsersPageComponent: FC<IProps> = ({ usersDataAttr }) => {
     <div>
       <p>Список пользователей:</p>
       <div className={style.user_list}>
-        {pagginatedUserData.length ? (
-          pagginatedUserData.map((user) => {
+        {paginatedUserData.length ? (
+          paginatedUserData.map((user) => {
             const { id, name, email } = user;
             return (
               <React.Fragment key={`UserId:${id}`}>
-                <UserCard id={id} name={name} email={email} />
+                <UserCard id={id || 0} name={name} email={email} />
               </React.Fragment>
             );
           })
@@ -54,29 +52,24 @@ const UsersPageComponent: FC<IProps> = ({ usersDataAttr }) => {
           <div>Пользователи не найдены.</div>
         )}
       </div>
-
       <Pagination limit={3} itemsAmount={usersDataAttr.length} />
 
       <hr />
 
-      <form className={style.create_user__form_wrapper} onSubmit={handleFormSubmit}>
+      <form className={style.create_user__form_wrapper} onSubmit={handleFormSumbit}>
         <input
           type="text"
           placeholder="Введите имя"
           value={nameValue}
-          onChange={(event) => {
-            setNameValue(event.target.value);
-          }}
+          onChange={(event) => setNameValue(event.target.value)}
         />
         <input
-          type="email"
+          type="text"
           placeholder="Введите Email"
           value={emailValue}
-          onChange={(event) => {
-            setEmailValue(event.target.value);
-          }}
+          onChange={(event) => setEmailValue(event.target.value)}
         />
-        <button type="submit">Создать пользователя</button>
+        <button type="submit">Создать пользоватля</button>
       </form>
     </div>
   );
