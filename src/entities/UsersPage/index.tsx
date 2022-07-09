@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { usersUrl } from '../../api/constats';
-import { IUsers } from '../../interfaces/IUsers';
-import { setUsersDataAction } from '../../store/pages/UsersPage/actions';
-import { getUsersData } from '../../store/pages/UsersPage/selectors';
-import UsersPageComponent from './components/UsersPageComponent';
+import { Button, Modal, Table } from 'antd';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { resetUserStoreAction } from 'store/pages/UsersPage/actions';
+import { fetchUsersAsync } from 'store/pages/UsersPage/async-actions';
+import { getUsersData } from 'store/pages/UsersPage/selectors';
 
 const UsersPage = () => {
-  // const [usersData, setUsersData] = useState<IUsers[] | null>(null);
-  const dispatch = useDispatch();
-  const usersData = useSelector(getUsersData);
+  const dispatch = useAppDispatch();
 
-  const { pathname, search } = useLocation();
-  const navigate = useNavigate();
-
-  const getData = async (url: string) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    // setUsersData(data);
-    dispatch(setUsersDataAction(data));
-  };
+  const { loading, usersTableColums, mappedUsersData } = useAppSelector(getUsersData);
 
   useEffect(() => {
-    if (pathname === '/') {
-      navigate('/users_page');
-    }
-    if (!search) {
-      navigate('?page=1');
-    }
-  }, [pathname, navigate, search]);
-
-  useEffect(() => {
-    getData(usersUrl);
-    // dispatch({ type: 'SET_DATA', payload: [1, 2, 3] });
+    dispatch(fetchUsersAsync({ _page: 1, _limit: 10 }));
+    return () => {
+      dispatch(resetUserStoreAction());
+    };
   }, []);
 
-  return !usersData ? <div>Загрузка...</div> : <UsersPageComponent usersDataAttr={usersData} />;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsModalVisible((prev) => !prev)}>Открыть модальное окно</Button>
+      <Modal
+        okText="ОКЕЙ"
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible((prev) => !prev)}>
+        <p>Текст</p>
+      </Modal>
+      <Table
+        columns={usersTableColums}
+        dataSource={mappedUsersData}
+        loading={loading}
+        pagination={{ defaultPageSize: 5 }}
+      />
+    </>
+  );
 };
-
 export default UsersPage;

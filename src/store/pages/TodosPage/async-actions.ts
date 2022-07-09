@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
-import { IFetchTodosActions, IFetchTodosParams, TodosActionTypes } from './interface';
 import { TodosService } from './todos-service';
+import { IFetchTodosParams, IFetchTodosActions, TodosActionTypes } from './interfaces';
 
 export const fetchTodos = ({ _page, _limit }: IFetchTodosParams) => {
   return async (dispatch: Dispatch<IFetchTodosActions>) => {
